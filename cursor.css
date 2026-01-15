@@ -1,0 +1,76 @@
+/* --- NARUTO SHURIKEN CURSOR THEME --- */
+body,
+a,
+button,
+input,
+textarea {
+    cursor: none !important;
+    /* Ẩn con trỏ mặc định */
+}
+
+/* 1. Phi tiêu Shuriken */
+#shuriken-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    z-index: 10000;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23e2e8f0' d='M256 0c-18.8 13.9-62.7 75.3-77.9 126.9L126.9 77.9C75.3 62.7 13.9 18.8 0 0c18.8 13.9 62.7 75.3 77.9 126.9L29 178.1C11.5 183.7 0 200.7 0 219.1v73.7c0 18.4 11.5 35.4 29 41l48.9 15.6C62.7 436.7 18.8 498.1 0 512c13.9-18.8 75.3-62.7 126.9-77.9l51.2 48.9c5.6 17.5 22.6 29 41 29h73.7c18.4 0 35.4-11.5 41-29l51.2-48.9C436.7 449.3 498.1 493.2 512 512c-18.8-13.9-62.7-75.3-77.9-126.9l48.9-51.2c17.5-5.6 29-22.6 29-41v-73.7c0-18.4-11.5-35.4-29-41l-48.9-15.6C449.3 75.3 493.2 13.9 512 0c-13.9 18.8-75.3 62.7-126.9 77.9L333.9 29C328.3 11.5 311.3 0 292.9 0h-73.7c-18.4 0-35.4 11.5-41 29l-48.9 51.2C130.7 77.9 256 0 256 0zm0 184a72 72 0 1 1 0 144 72 72 0 1 1 0-144z'/%3E%3Cdiv fill='%231e293b' cx='256' cy='256' r='30'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%);
+    /* Animation quay mặc định */
+    animation: spin 0.8s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* 2. Hiệu ứng tàn ảnh (Afterimage / Wind Trail) */
+.ninja-trail {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    /* Màu xanh Chakra hoặc gió */
+    background: radial-gradient(circle, rgba(147, 197, 253, 0.8) 0%, rgba(59, 130, 246, 0) 70%);
+    transform: translate(-50%, -50%);
+    animation: fadeOutTrail 0.5s ease-out forwards;
+    mix-blend-mode: screen;
+    /* Hiệu ứng ánh sáng chồng lớp */
+}
+
+/* 3. Tia lửa khi click (Spark) */
+.click-spark {
+    position: fixed;
+    width: 4px;
+    height: 20px;
+    background: #fcd34d;
+    pointer-events: none;
+    z-index: 10001;
+    border-radius: 2px;
+}
+
+@keyframes fadeOutTrail {
+    0% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+    }
+}

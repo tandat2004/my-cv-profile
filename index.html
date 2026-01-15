@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog cá nhân và CV Online - Giới thiệu bản thân, kỹ năng và kinh nghiệm làm việc">
+    <title>Hồ Sơ Của Tôi | AI Engineer & Designer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor Icons - lightweight and free) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Physics Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cursor.css">
+</head>
+
+<body>
+    <div id="shuriken-cursor"></div>
+    <div class="noise-overlay"></div>
+    <div class="cursor-glow"></div>
+
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#hero" class="logo">My<span>CV</span>.</a>
+            <ul class="nav-links">
+                <li><a href="#about">Về Tôi</a></li>
+                <li><a href="#resume">Hồ Sơ</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact" class="btn-primary">Liên Hệ</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="greeting">Xin chào, tôi là</span>
+                    <h1 class="name">Hà Tấn Đạt</h1>
+                    <h2 class="title">AI Engineer <span class="highlight">& Designer</span></h2>
+                    <p class="description">
+                        Sinh viên chuyên ngành Khoa học Máy tính tại Đại học Cần Thơ.
+                        Một người con của đất An Giang, mang trong mình niềm đam mê mãnh liệt với Trí tuệ nhân tạo (AI)
+                        và Lập trình phần mềm.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#resume" class="btn-primary">Xem CV</a>
+                        <a href="#contact" class="btn-secondary">Liên hệ ngay</a>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-bg"></div>
+                    <img src="avatar_placeholder.png" alt="Chân dung" class="hero-image" id="profile-image">
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <span>Cuộn xuống</span>
+                <i class="ph ph-arrow-down"></i>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="overline">Giới Thiệu</span>
+                    <h2 class="section-title">Câu Chuyện Của Tôi</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="ph ph-student"></i>
+                        <h3>Sinh viên CS</h3>
+                        <p>Đang theo học tại Đại học Cần Thơ. Nắm vững kiến thức nền tảng C++, Java và cấu trúc dữ liệu.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <i class="ph ph-brain"></i>
+                        <h3>AI & Python</h3>
+                        <p>Đam mê nghiên cứu và huấn luyện các mô hình AI (Train AI). Sử dụng thành thạo Python.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="ph ph-game-controller"></i>
+                        <h3>Sở Thích</h3>
+                        <p>Yêu thích bóng đá, xem phim, nghe nhạc và chơi game để giải trí sau những giờ code căng
+                            thẳng.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESUME / SKILLS SECTION -->
+        <section id="resume" class="section bg-alt">
+            <div class="container">
+                <div class="resume-grid">
+                    <!-- Experience / Education -->
+                    <div class="resume-column">
+                        <h3 class="column-title"><i class="ph ph-graduation-cap"></i> Học Vấn</h3>
+
+                        <div class="timeline-item">
+                            <span class="timeline-date">Hiện tại</span>
+                            <h4 class="timeline-role">Khoa học Máy tính</h4>
+                            <span class="timeline-company">Đại học Cần Thơ (CTU)</span>
+                            <p>Đang tích lũy kiến thức chuyên sâu về lập trình và trí tuệ nhân tạo.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-date">Quê Quán</span>
+                            <h4 class="timeline-role">An Giang, Việt Nam</h4>
+                            <span class="timeline-company">Nơi sinh ra và lớn lên</span>
+                            <p>Tự hào là người con của miền Tây sông nước, chân chất và hòa đồng.</p>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="resume-column">
+                        <h3 class="column-title"><i class="ph ph-lightning"></i> Kỹ Năng</h3>
+
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>C++ / Java / Python</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>HTML / CSS / JS</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>AI Training / ML</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Tiếng Anh Giao Tiếp</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG SECTION -->
+        <section id="blog" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="overline">Bài Viết Mới</span>
+                    <h2 class="section-title">Blog Cá Nhân</h2>
+                </div>
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <!-- Placeholder for blog image -->
+                            <div class="blog-image-placeholder color-1"></div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>15 Tháng 1, 2024</span> • <span>Công nghệ</span>
+                            </div>
+                            <h3 class="blog-title"><a href="#">Xu hướng Web Design năm 2024 có gì mới?</a></h3>
+                            <p class="blog-excerpt">Khám phá những phong cách thiết kế đang làm mưa làm gió trong cộng
+                                đồng sáng tạo...</p>
+                            <a href="#" class="read-more">Đọc thêm <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <div class="blog-image-placeholder color-2"></div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>10 Tháng 1, 2024</span> • <span>Lập trình</span>
+                            </div>
+                            <h3 class="blog-title"><a href="#">Tối ưu hóa hiệu năng website với Vanilla JS</a></h3>
+                            <p class="blog-excerpt">Tại sao đôi khi quay về những điều cơ bản lại mang lại hiệu quả cao
+                                nhất cho ứng dụng của bạn...</p>
+                            <a href="#" class="read-more">Đọc thêm <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <div class="blog-image-placeholder color-3"></div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>05 Tháng 1, 2024</span> • <span>Đời sống</span>
+                            </div>
+                            <h3 class="blog-title"><a href="#">Cân bằng công việc và cuộc sống của một Dev</a></h3>
+                            <p class="blog-excerpt">Chia sẻ những kinh nghiệm cá nhân để giữ lửa đam mê mà không bị
+                                burnout...</p>
+                            <a href="#" class="read-more">Đọc thêm <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section bg-alt">
+            <div class="container contact-container">
+                <div class="contact-text">
+                    <h2 class="section-title">Liên Hệ Với Tôi</h2>
+                    <p>Bạn có ý tưởng dự án thú vị? Hay chỉ đơn giản là muốn kết nối? Hãy gửi tin nhắn cho tôi nhé.</p>
+
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="ph ph-envelope-simple"></i>
+                            <span>email@example.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="ph ph-phone"></i>
+                            <span>+84 123 456 789</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="ph ph-map-pin"></i>
+                            <span>An Giang & Cần Thơ, Việt Nam</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="ph ph-github-logo"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="ph ph-twitter-logo"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Họ tên</label>
+                        <input type="text" id="name" placeholder="Nhập họ tên của bạn">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Nhập địa chỉ email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tin nhắn</label>
+                        <textarea id="message" rows="5" placeholder="Bạn muốn nhắn gửi điều gì?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">Gửi Tin Nhắn</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Hà Tấn Đạt. Designed & Built with <i class="ph-fill ph-heart heart-icon"></i>.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="cats.js"></script>
+</body>
+
+</html>
