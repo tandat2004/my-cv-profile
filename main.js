@@ -123,9 +123,13 @@ if (cursorGlow) {
         glowX = lerp(glowX, mouseX, 0.1);
         glowY = lerp(glowY, mouseY, 0.1);
 
+        const isLight = document.documentElement.classList.contains('light-mode');
+        const color1 = isLight ? 'hsla(187, 100%, 45%, 0.05)' : 'hsla(333, 100%, 52%, 0.08)';
+        const color2 = isLight ? 'hsla(45, 100%, 55%, 0.02)' : 'hsla(255, 85%, 65%, 0.04)';
+
         cursorGlow.style.background = `radial-gradient(800px at ${glowX}px ${glowY}px, 
-            hsla(333, 100%, 52%, 0.08), 
-            hsla(255, 85%, 65%, 0.04) 40%, 
+            ${color1}, 
+            ${color2} 40%, 
             transparent 70%)`;
 
         requestAnimationFrame(updateGlow);
@@ -564,8 +568,153 @@ function activateEasterEgg() {
     }, 5000);
 }
 
+// --- 17. THEME TOGGLE LOGIC (HASH KEY) ---
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const htmlElement = document.documentElement;
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    htmlElement.classList.add('light-mode');
+    if (themeIcon) themeIcon.className = 'ph-fill ph-moon';
+}
+
+if (themeToggle) {
+    let isDragging = false;
+    let startY = 0;
+    let startX = 0;
+    let dragY = 0;
+    let dragX = 0;
+    const baseHeight = 150;
+    const maxDrag = 200;
+
+    // Vertical Spring physics
+    let springY = 0;
+    let velocityY = 0;
+    const tensionY = 0.15;
+    const frictionY = 0.8;
+
+    // Horizontal Swing physics (Rotation)
+    let rotation = 0;
+    let velocityR = 0;
+    const tensionR = 0.05;
+    const frictionR = 0.92;
+
+    const updatePhysics = () => {
+        if (!isDragging) {
+            // Vertical Physics
+            const forceY = (0 - springY) * tensionY;
+            velocityY += forceY;
+            velocityY *= frictionY;
+            springY += velocityY;
+
+            // Rotation Physics
+            const forceR = (0 - rotation) * tensionR;
+            velocityR += forceR;
+            velocityR *= frictionR;
+            rotation += velocityR;
+
+            // Apply visual updates
+            themeToggle.style.height = `${baseHeight + springY}px`;
+            themeToggle.style.transform = `rotate(${rotation}deg)`;
+
+            // Stop loop if movement is negligible
+            if (Math.abs(velocityY) < 0.01 && Math.abs(springY) < 0.01 &&
+                Math.abs(velocityR) < 0.01 && Math.abs(rotation) < 0.01) {
+                springY = 0;
+                velocityY = 0;
+                rotation = 0;
+                velocityR = 0;
+                themeToggle.style.height = `${baseHeight}px`;
+                themeToggle.style.transform = `rotate(0deg)`;
+                return;
+            }
+        }
+        requestAnimationFrame(updatePhysics);
+    };
+
+    const handleStart = (e) => {
+        isDragging = true;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        startX = clientX;
+        startY = clientY;
+        themeToggle.style.transition = 'none';
+        document.body.style.userSelect = 'none';
+    };
+
+    const handleMove = (e) => {
+        if (!isDragging) return;
+
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+        dragY = Math.max(0, clientY - startY);
+        dragX = clientX - startX;
+
+        // Vertical displacement with resistance
+        springY = Math.log10(dragY / 100 + 1) * maxDrag;
+
+        // Calculate rotation based on horizontal drag and current vertical length
+        const currentLength = baseHeight + springY;
+        rotation = -(dragX / currentLength) * (180 / Math.PI) * 0.5;
+
+        // Limit rotation
+        rotation = Math.max(-60, Math.min(60, rotation));
+
+        themeToggle.style.height = `${currentLength}px`;
+        themeToggle.style.transform = `rotate(${rotation}deg)`;
+    };
+
+    const handleEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        document.body.style.userSelect = '';
+
+        if (springY > 50) {
+            triggerThemeChange();
+        }
+
+        // Final velocity carry over
+        velocityR = rotation * 0.05;
+
+        requestAnimationFrame(updatePhysics);
+    };
+
+    const triggerThemeChange = () => {
+        document.body.classList.add('theme-changing');
+        const rect = themeToggle.querySelector('.theme-toggle-handle').getBoundingClientRect();
+        createSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        const isLight = htmlElement.classList.toggle('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        if (themeIcon) {
+            themeIcon.className = isLight ? 'ph-fill ph-moon' : 'ph-fill ph-sun';
+        }
+        setTimeout(() => {
+            document.body.classList.remove('theme-changing');
+        }, 1200);
+    };
+
+    themeToggle.addEventListener('mousedown', handleStart);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+    themeToggle.addEventListener('touchstart', handleStart);
+    window.addEventListener('touchmove', handleMove);
+    window.addEventListener('touchend', handleEnd);
+
+    themeToggle.addEventListener('mouseenter', () => {
+        if (!isDragging) {
+            velocityY = 15;
+            velocityR = (Math.random() - 0.5) * 10;
+            requestAnimationFrame(updatePhysics);
+        }
+    });
+}
+
 // --- INIT LOG ---
 console.log('%c✨ Website loaded with Josh Comeau-style interactions!',
     'background: linear-gradient(135deg, #ff5c87, #a855f7); color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold;');
 console.log('%c🎮 Try the Konami Code for a surprise!',
     'color: #a855f7; font-weight: bold;');
+

@@ -61,6 +61,55 @@
     --spring-duration: 400ms;
     --spring-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --theme-transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode Overrides */
+:root.light-mode {
+    --color-background: hsl(210, 20%, 98%);
+    --color-background-light: hsl(210, 20%, 94%);
+    --color-background-elevated: hsl(0, 0%, 100%);
+
+    --color-text: hsl(230, 25%, 12%);
+    --color-text-secondary: hsl(230, 15%, 30%);
+    --color-text-muted: hsl(230, 10%, 45%);
+
+    --border-color: hsla(210, 20%, 0%, 0.1);
+    --border-color-hover: hsla(210, 20%, 0%, 0.2);
+
+    --shadow-md: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
+    --shadow-lg: 0 20px 50px -20px hsla(0, 0%, 0%, 0.15);
+}
+
+/* Base Theme Transition */
+body {
+    transition: background-color var(--theme-transition), color var(--theme-transition);
+}
+
+* {
+    transition: background-color var(--theme-transition),
+        color var(--theme-transition),
+        border-color var(--theme-transition),
+        box-shadow var(--theme-transition);
+}
+
+/* Prevent unwanted transitions on animated elements */
+.hero-text,
+.hero-image-wrapper,
+.shuriken-cursor,
+.click-spark,
+.ninja-trail,
+.about-card,
+.project-card,
+.achievement-card,
+.btn-primary,
+.btn-secondary,
+.nav-links li a,
+.logo,
+.mobile-menu-btn,
+.scroll-indicator {
+    transition-duration: 0.3s;
+    /* Default shorter duration for interactive elements */
 }
 
 /* --- CSS RESET (Josh Comeau Style) --- */
@@ -139,6 +188,14 @@ body::before {
         radial-gradient(circle at 50% 50%, hsla(265, 100%, 65%, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
+    transition: background 0.8s ease;
+}
+
+.light-mode body::before {
+    background:
+        radial-gradient(circle at 10% 10%, hsla(187, 100%, 45%, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, hsla(45, 100%, 55%, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, hsla(265, 100%, 65%, 0.02) 0%, transparent 50%);
 }
 
 /* Noise texture overlay */
@@ -1849,4 +1906,117 @@ h6 {
     .section {
         padding: 40px 0;
     }
+}
+
+/* ============================================
+   THEME TOGGLE (HANGING ROPE)
+   ============================================ */
+.theme-toggle-container {
+    position: fixed;
+    top: 0;
+    right: 40px;
+    z-index: 10001;
+    height: 150px;
+    transform-origin: top center;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* We'll use JS to update the 'height' of the container or translateY */
+
+.theme-toggle-rope {
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            var(--color-primary),
+            var(--color-quaternary),
+            var(--color-secondary));
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 10px hsla(0, 0%, 100%, 0.1);
+}
+
+/* Small ornament at the top */
+.theme-toggle-rope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-background-elevated);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+}
+
+.theme-toggle-handle {
+    width: 36px;
+    height: 36px;
+    background: var(--color-background-elevated);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-md), 0 0 15px hsla(333, 100%, 55%, 0.3);
+    transition: all 0.3s var(--spring-easing);
+}
+
+.theme-toggle-container:hover .theme-toggle-handle {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateX(-50%) scale(1.1);
+}
+
+/* Light mode specific adjustments for the toggle */
+.light-mode .theme-toggle-handle {
+    box-shadow: var(--shadow-md), 0 0 15px hsla(187, 100%, 45%, 0.2);
+    border-color: var(--color-secondary);
+}
+
+.light-mode .theme-toggle-container:hover .theme-toggle-handle {
+    background: var(--color-secondary);
+}
+
+/* Glow effect for the lamp */
+.theme-toggle-handle::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    opacity: 0.2;
+    filter: blur(8px);
+    z-index: -1;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 0.3;
+    }
+}
+
+/* Slow theme change animation for the whole body */
+.theme-changing * {
+    transition: background-color 1.2s ease,
+        color 1.2s ease,
+        border-color 1.2s ease,
+        box-shadow 1.2s ease,
+        backdrop-filter 1.2s ease !important;
 }
